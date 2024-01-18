@@ -4,11 +4,11 @@ import routes from "./routes/index.js";
 
 const connection = await connectOnDatabase();
 connection.on("error", (erro) => {
-    console.error("connection error", erro)
+  console.error("connection error", erro);
 });
 
 connection.once("open", () => {
-    console.log("success on connect database");
+  console.log("success on connect database");
 });
 
 const app = express();
