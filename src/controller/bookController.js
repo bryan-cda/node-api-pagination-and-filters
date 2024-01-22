@@ -2,16 +2,16 @@ import book from "../model/book.js";
 import { authors } from "../model/author.js";
 
 class bookController {
-  static async listBooks(req, res) {
+  static  listBooks = async (req, res) => {
     try {
       const books = await book.find({});
       res.status(200).json(books);
     } catch(error){
-      res.status(500).json(`${error} - error on execute request to find all books`);
+      res.status(500).json(`${error} - error when try to execute request to find all books`);
     }   
   }
 
-  static async addBook(req, res) {
+  static addBook = async (req, res) => {
     const bookRequest = req.body;
 
     try{
@@ -24,25 +24,25 @@ class bookController {
         }});
 
         const createdBook = await book.create(newBook);
-        res.status(201).json({message: "successfully created", book: createdBook});
+        res.status(201).json({message: "book created successfully", book: createdBook});
       }
 
     } catch (error){
-      res.status(500).json({message: `${error.message} - error when attempt to add book: ${req.body}`});
+      res.status(500).json({message: `${error.message} - error when try to add book: ${req.body}`});
     }
   }
 
-  static async findBookById(req, res) {
+  static findBookById = async (req, res) => {
     try {
       const id = req.params.id;
       const bookFound = await book.findById(id);
-      res.status(200).json(`update execute for book: ${bookFound}`);
+      res.status(200).json(bookFound);
     } catch(error){
-      res.status(500).json(`${error.message} - error on attempt to search book by id: ${req.params.id}`);
+      res.status(500).json(`${error.message} - error when try to search book by id: ${req.params.id}`);
     }
   }
 
-  static async updateBook(req, res){
+  static updateBook = async (req, res) =>{
     try {
       const id = req.params.id;
       await book.findByIdAndUpdate(id, req.body);
@@ -58,7 +58,7 @@ class bookController {
       await book.findByIdAndDelete(id);
       res.status(200).send("book has been deleted successfully");
     } catch (error){
-      res.status(500).json(`${error.message} - error on attempt to delete book by id: ${req.params.id}`);
+      res.status(500).json(`${error.message} - error when try to delete book by id: ${req.params.id}`);
     }
   }
 
